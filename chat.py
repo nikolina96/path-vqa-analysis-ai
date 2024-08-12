@@ -26,7 +26,7 @@ chain = prompt | model
 def handle_conversation(questions):
     context = f"questions: {questions}"
     print("Welcome to LLama neural-chat ChatBot. Type 'exit' to quit")
-    print(context)
+
     while True:
         user_input = input("You: ")
         # exit
@@ -34,11 +34,8 @@ def handle_conversation(questions):
             break
         # else
         response = chain.invoke({"context": context, "question":user_input})
-        print(f'AI chatbot: {response}')
+        print(f'AI chatbot: {response}\n')
         # context is history of chat
         context += f'\nUser: {user_input}\n AI: {response}'
 
 # response = model.invoke(input='Hello')
-        
-if __name__ == "__main__":
-    handle_conversation()
