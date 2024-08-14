@@ -1,8 +1,8 @@
 """
-Llama LLM neural-chat local chat interface based on Ollama https://ollama.com/download/
-It enables interacting with model from terminal or another script, while
+Llama LLM llama3.1 local chat interface based on Ollama https://ollama.com/download/
+It enables interaction with a model from the terminal or another script, while
 preserving chat history as context.
-The module was writen following this tutorial:
+The module was written following this tutorial:
 https://www.youtube.com/watch?v=d0o89z134CQ
 """
 
@@ -18,14 +18,14 @@ Question: {question}
 
 Answer:
 """
-model = OllamaLLM(model='neural-chat')
+model = OllamaLLM(model='llama3.1')
 prompt = ChatPromptTemplate.from_template(template)
 # chain prompt and model
 chain = prompt | model
 
-def handle_conversation(questions):
-    context = f"questions: {questions}"
-    print("Welcome to LLama neural-chat ChatBot. Type 'exit' to quit")
+def handle_conversation(data):
+    context = f"data: {data}"
+    print("Welcome to LLama ChatBot. Type 'exit' to quit")
 
     while True:
         user_input = input("You: ")
@@ -34,8 +34,9 @@ def handle_conversation(questions):
             break
         # else
         response = chain.invoke({"context": context, "question":user_input})
-        print(f'AI chatbot: {response}\n')
+        print(f'\nAI chatbot: {response}\n')
         # context is history of chat
         context += f'\nUser: {user_input}\n AI: {response}'
+    return context[len(f"data: {data}"):]
 
 # response = model.invoke(input='Hello')
